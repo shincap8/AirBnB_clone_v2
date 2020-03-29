@@ -53,7 +53,6 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj, k, eval(v))
             obj.save()
             print("{}".format(obj.id))
-            print(obj)
         except SyntaxError:
             print("** class name missing **")
         except NameError:
