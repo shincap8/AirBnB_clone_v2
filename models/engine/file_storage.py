@@ -72,5 +72,3 @@ class FileStorage:
             else:
                 temp = key
         del self.__objects[temp]
-        with open(self.__file_path, 'w', encoding="UTF-8") as f:
-            json.dump(my_dict, f)
