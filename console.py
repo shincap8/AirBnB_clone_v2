@@ -43,14 +43,15 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             my_dict = {}
+            dict_class = eval("{}.__dict__".format(my_list[0]))
             for i in range(1, len(my_list)):
                 temp = my_list[i].split("=")
                 value = temp[1].replace("_", " ")
                 my_dict[temp[0]] = value
-            obj = eval("{}()".format(my_list[0]))
             for k, v in my_dict.items():
-                if getattr(obj, k, 'nonexistent') != 'nonexistent':
-                    setattr(obj, k, eval(v))
+                if k not in dict_class:
+                    del my_dict[k]
+            obj = eval("{}({})".format(my_list[0], my_dict))
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:
