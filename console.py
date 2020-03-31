@@ -48,10 +48,10 @@ class HBNBCommand(cmd.Cmd):
                 temp = my_list[i].split("=")
                 value = temp[1].replace("_", " ")
                 my_dict[temp[0]] = value
+            obj = eval("{}()".format(my_list[0]))
             for k, v in my_dict.items():
-                if k not in dict_class:
-                    del my_dict[k]
-            obj = eval("{}({})".format(my_list[0], my_dict))
+                if getattr(obj, k, 'nonexistent') != 'nonexistent':
+                    setattr(obj, k, eval(v))
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:

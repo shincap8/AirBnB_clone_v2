@@ -12,20 +12,29 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 import os
 
-class DBStorage:
 
+class DBStorage:
+    """
+    DBStorage
+    """
     __engine = None
     __session = None
 
     def __init__(self):
-        """"""
+        """
+        init
+        """
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            os.getenv('HBNB_MYSQL_USER'), os.getenv('HBNB_MYSQL_PWD'), os.getenv('HBNB_MYSQL_HOST'), os.getenv('HBNB_MYSQL_DB')), pool_pre_ping=True)
+            os.getenv('HBNB_MYSQL_USER'), os.getenv('HBNB_MYSQL_PWD'),
+            os.getenv('HBNB_MYSQL_HOST'), os.getenv('HBNB_MYSQL_DB')),
+            pool_pre_ping=True)
         if os.getenv('HBNB_ENV') == "test":
             Base.metadata.drop_all(bind=self.__engine)
-    
+
     def all(self, cls=None):
-        """"""
+        """
+        all
+        """
         current = []
         objects = {}
         if cls:
@@ -53,6 +62,7 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        Base.metadata.create_all(self.__engine)
-        Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        Base.metadata.create_all(bind=self.__engine)
+        Session = scoped_session(
+            sessionmaker(bind=self.__engine, expire_on_commit=False))
         self.__session = Session()
