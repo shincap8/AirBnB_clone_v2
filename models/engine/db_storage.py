@@ -37,15 +37,24 @@ class DBStorage:
         """
         current = []
         objects = {}
+        my_tables = {'cities': 'City', 'states': 'State', 'users': 'User',
+                     'amenities': 'Amenity', 'places': 'Place',
+                     'reviews': 'Review'}
         if cls:
-            current = self.__session.query(cls).all()
+            current = self.__session.query(eval(cls)).all()
         else:
-            tables = engine.table_names()
+            tables = self.__engine.table_names()
             for table in tables:
-                current.append(self.__session.query(table).all())
+                current.append(self.__session.query(
+                    eval(my_tables[table])).all())
         for obj in current:
-            key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            objects[key] = obj
+            if type(obj) == list:
+                for o in obj:
+                    key = "{}.{}".format(o.__class__.__name__, o.id)
+                    objects[key] = o
+            else:
+                key = "{}.{}".format(obj.__class__.__name__, obj.id)
+                objects[key] = obj
         return objects
 
     def new(self, obj):
