@@ -19,6 +19,9 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
+            """
+            cities
+            """
             objects = storage.all()
             my_cities = []
             for obj in objects:

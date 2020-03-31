@@ -49,19 +49,28 @@ class DBStorage:
         return objects
 
     def new(self, obj):
-        """"""
+        """
+        new
+        """
         self.__session.add(obj)
 
     def save(self):
-        """"""
+        """
+        save
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
-        """"""
+        """
+        delete
+        """
         if obj:
             self.__session.delete(obj)
 
     def reload(self):
+        """
+        reload
+        """
         Base.metadata.create_all(bind=self.__engine)
         Session = scoped_session(
             sessionmaker(bind=self.__engine, expire_on_commit=False))
