@@ -44,7 +44,7 @@ class DBStorage:
             for table in tables:
                 current.append(self.__session.query(table).all())
         for obj in current:
-            key = "{}.{}".format(type(obj).__name__, obj.id)
+            key = "{}.{}".format(obj.__class__.__name__, obj.id)
             objects[key] = obj
         return objects
 
@@ -53,6 +53,7 @@ class DBStorage:
         new
         """
         self.__session.add(obj)
+        self.save()
 
     def save(self):
         """
@@ -66,6 +67,7 @@ class DBStorage:
         """
         if obj:
             self.__session.delete(obj)
+            self.save()
 
     def reload(self):
         """
