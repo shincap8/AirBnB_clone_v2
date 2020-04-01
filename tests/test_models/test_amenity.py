@@ -3,12 +3,22 @@
 import unittest
 import os
 from models.amenity import Amenity
+from models.states import State
 from models.base_model import BaseModel
 import pep8
 
 
 class TestAmenity(unittest.TestCase):
     """this will test the Amenity class"""
+
+    self.assertEqual(amenity_1.name, "Wifi")
+    self.assertEqual(amenity_2.name, "Cable")
+    self.assertEqual(amenity_3.name, "Air conditioner")
+    self.assertIn(amenity_1.id, my_place1)
+    self.assertIn(amenity_2.id, my_place1)
+    self.assertIn(amenity_1.id, my_place2)
+    self.assertIn(amenity_2.id, my_place2)
+    self.assertIn(amenity_3.id, my_place2)
 
     @classmethod
     def setUpClass(cls):

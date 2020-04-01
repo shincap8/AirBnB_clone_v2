@@ -19,13 +19,17 @@ class Place(BaseModel, Base):
         price_by_night:: pice for a staying in int
         latitude: latitude in flaot
         longitude: longitude in float
-        amenity_ids: list of Amenity ids
+        amenity_ ids:list of Amenity ids
     """
     __tablename__ = "places"
     metadata = Base.metadata
     place_amenity = Table('place_amenity', metadata,
-                     Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
-                     Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False))
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'),
+                                 primary_key=True, nullable=False),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'),
+                                 primary_key=True, nullable=False))
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     name = Column(String(128), nullable=False)
@@ -36,9 +40,13 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    amenity_ids = []
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        reviews = relationship('Review', cascade='all, delete', backref='place')
-        amenities = relationship('Amenity', secondary=place_amenity, viewonly=False, back_populates='place_amenities')    
+        reviews = relationship('Review',
+                               cascade='all, delete', backref='place')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 viewonly=False,
+                                 back_populates='place_amenities')
     else:
         @property
         def reviews(self):
@@ -48,7 +56,8 @@ class Place(BaseModel, Base):
             objects = storage.all()
             my_reviews = []
             for obj in objects:
-                if obj.place_id == self.id and obj.__class__.__name__ == 'Review':
+                cl_obj = obj.__class__.__name__
+                if obj.place_id == self.id and cl_obj == 'Review':
                     my_reviews.append(obj)
             return (my_reviews)
 
@@ -60,7 +69,8 @@ class Place(BaseModel, Base):
             objects = storage.all()
             my_amenities = []
             for obj in objects:
-                if obj.place_id == self.id and obj.__class__.__name__ == 'Amenity':
+                cl_obj = obj.__class__.__name__
+                if obj.place_id == self.id and cl_obj == 'Amenity':
                     my_amenities.append(obj)
             return (my_amenities)
 
@@ -69,5 +79,5 @@ class Place(BaseModel, Base):
                 """
                 amenities
                 """
-                if obj.__class__.__class__ == 'Amenity':
-                    amenity_id.append(amenities.id)
+                if obj.__class__.__name__ == 'Amenity':
+                    amenity_ids.append(obj.id)
