@@ -15,10 +15,10 @@ class TestAmenity(unittest.TestCase):
         my_state = State(name="Pennsylvania")
         my_city = City(state_id=my_state.id, name="Pittsburgh")
         my_self = User(email="jane@doe.com", password="janepwd")
-        my_place1 = Place(user_id=my_self.id,
-                            city_id=my_city.id, name="My Crib")
+        my_place1 = Place(user_id=my_self.id, city_id=my_city.id,
+                          name="My Crib")
         my_place2 = Place(user_id=my_self.id,
-                            city_id=my_city.id, name="My Lodge")
+                          city_id=my_city.id, name="My Lodge")
         amenity_1 = Amenity(name="Wifi")
         amenity_2 = Amenity(name="Cable")
         amenity_3 = Amenity(name="Air conditioner")
