@@ -14,36 +14,6 @@ import pep8
 
 class TestAmenity(unittest.TestCase):
     """this will test the Amenity class"""
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
-                     "Won't work in FileStorage")
-    def test_amenity_dbstorage(self):
-        my_state = State(name="Pennsylvania")
-        my_city = City(state_id=my_state.id, name="Pittsburgh")
-        my_self = User(email="jane@doe.com", password="janepwd")
-        my_place1 = Place(user_id=my_self.id, city_id=my_city.id,
-                          name="My Crib")
-        my_place2 = Place(user_id=my_self.id,
-                          city_id=my_city.id, name="My Lodge")
-        amenity_1 = Amenity(name="Wifi")
-        amenity_2 = Amenity(name="Cable")
-        amenity_3 = Amenity(name="Air conditioner")
-        my_place1.amenities.append(amenity_1)
-        my_place1.amenities.append(amenity_2)
-        my_place2.amenities.append(amenity_1)
-        my_place2.amenities.append(amenity_2)
-        my_place2.amenities.append(amenity_3)
-        models.storage.save()
-        if amenity_1.id in models.storage.all():
-            self.assertEqual(amenity_1.name, "Wifi")
-        if amenity_1.id in models.storage.all():
-            self.assertEqual(amenity_2.name, "Cable")
-        if amenity_1.id in models.storage.all():
-            self.assertEqual(amenity_3.name, "Air conditioner")
-        self.assertIn(amenity_1.id, my_place1.amenities)
-        self.assertIn(amenity_2.id, my_place1.amenities)
-        self.assertIn(amenity_1.id, my_place2.amenities)
-        self.assertIn(amenity_2.id, my_place2.amenities)
-        self.assertIn(amenity_3.id, my_place2.amenities)
 
     @classmethod
     def setUpClass(cls):
