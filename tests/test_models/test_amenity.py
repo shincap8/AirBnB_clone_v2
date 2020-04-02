@@ -51,15 +51,11 @@ class TestAmenity(unittest.TestCase):
         cls.amenity = Amenity()
         cls.amenity.name = "Breakfast"
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     @classmethod
     def teardown(cls):
         """at the end of the test this will tear it down"""
         del cls.amenity
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     def tearDown(self):
         """teardown"""
         try:
@@ -67,22 +63,16 @@ class TestAmenity(unittest.TestCase):
         except Exception:
             pass
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     def test_pep8_Amenity(self):
         """Tests pep8 style"""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(['models/amenity.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     def test_checking_for_docstring_Amenity(self):
         """checking for docstrings"""
         self.assertIsNotNone(Amenity.__doc__)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     def test_attributes_Amenity(self):
         """chekcing if amenity have attibutes"""
         self.assertTrue('id' in self.amenity.__dict__)
@@ -90,27 +80,22 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue('updated_at' in self.amenity.__dict__)
         self.assertTrue('name' in self.amenity.__dict__)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     def test_is_subclass_Amenity(self):
         """test if Amenity is subclass of Basemodel"""
         self.assertTrue(issubclass(self.amenity.__class__, BaseModel), True)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     def test_attribute_types_Amenity(self):
         """test attribute type for Amenity"""
         self.assertEqual(type(self.amenity.name), str)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
+    @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        "This test only work in Filestorage")
     def test_save_Amenity(self):
         """test if the save works"""
         self.amenity.save()
         self.assertNotEqual(self.amenity.created_at, self.amenity.updated_at)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     "Won't work in DB")
     def test_to_dict_Amenity(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.amenity), True)
