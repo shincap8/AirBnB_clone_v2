@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
+import models
 import os
 
 
@@ -53,12 +54,13 @@ class Place(BaseModel, Base):
             """
             reviews
             """
-            objects = storage.all()
+            objects = models.storage.all()
             my_reviews = []
-            for obj in objects:
+            for key, obj in objects.items():
                 cl_obj = obj.__class__.__name__
-                if obj.place_id == self.id and cl_obj == 'Review':
-                    my_reviews.append(obj)
+                if cl_obj == 'Review':
+                    if obj.place_id == self.id:
+                        my_reviews.append(obj)
             return (my_reviews)
 
         @property
@@ -66,12 +68,13 @@ class Place(BaseModel, Base):
             """
             amenities
             """
-            objects = storage.all()
+            objects = models.storage.all()
             my_amenities = []
-            for obj in objects:
+            for key, obj in objects.items():
                 cl_obj = obj.__class__.__name__
-                if obj.place_id == self.id and cl_obj == 'Amenity':
-                    my_amenities.append(obj)
+                if cl_obj == 'Amenity':
+                    if obj.place_id == self.id:
+                        my_amenities.append(obj)
             return (my_amenities)
 
             @amenities.setter
