@@ -3,18 +3,12 @@
 import unittest
 import os
 from models.amenity import Amenity
-from models.state import State
-from models.city import City
-from models.user import User
-from models.place import Place
 from models.base_model import BaseModel
-import models
 import pep8
 
 
 class TestAmenity(unittest.TestCase):
     """this will test the Amenity class"""
-
     @classmethod
     def setUpClass(cls):
         """set up for test"""

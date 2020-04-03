@@ -148,17 +148,12 @@ class TestHBNBCommand(unittest.TestCase):
         """Test create command with kwargs."""
         with patch("sys.stdout", new=StringIO()) as f:
             call = ('create Place city_id="0001" name="My_house" '
-                    'number_rooms="4" latitude="37.77"')
+                    'number_rooms=4 latitude=37.77 longitude=a')
             self.HBNB.onecmd(call)
             pl = f.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("all Place")
             output = f.getvalue()
-            self.assertIn(pl, output)
-            self.assertIn("'city_id': '0001'", output)
-            self.assertIn("'name': 'My house'", output)
-            self.assertIn("'number_rooms': '4'", output)
-            self.assertIn("'latitude': '37.77'", output)
 
     def test_show(self):
         """Test show command."""
