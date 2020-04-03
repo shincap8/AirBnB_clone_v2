@@ -54,6 +54,15 @@ class TestState(unittest.TestCase):
         self.assertEqual(type(self.state.name), str)
 
     @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') != 'db',
+        "This test only work in Filestorage")
+    def test_State_in_db(self):
+        """test state"""
+        state = State(name="Pittsburgh")
+        if state.id in models.storage.all():
+            self.assertTrue(state.name, "Pittsburgh")
+
+    @unittest.skipIf(
         os.getenv('HBNB_TYPE_STORAGE') == 'db',
         "This test only work in Filestorage")
     def test_save_State(self):
