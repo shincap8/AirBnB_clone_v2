@@ -49,7 +49,7 @@ class TestPlace(unittest.TestCase):
         self.assertIsNotNone(Place.__doc__)
 
     def test_attributes_Place(self):
-        """chekcing if amenity have attributes"""
+        """checking if amenity have attributes"""
         self.assertTrue('id' in self.place.__dict__)
         self.assertTrue('created_at' in self.place.__dict__)
         self.assertTrue('updated_at' in self.place.__dict__)
@@ -97,4 +97,4 @@ class TestPlace(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+        unittest.main()
