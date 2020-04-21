@@ -41,7 +41,10 @@ class DBStorage:
                      'amenities': 'Amenity', 'places': 'Place',
                      'reviews': 'Review'}
         if cls:
-            current = self.__session.query(eval(cls)).all()
+            if type(cls) == str:
+                current = self.__session.query(eval(cls)).all()
+            else:
+                current = self.__session.query(cls).all()
         else:
             tables = self.__engine.table_names()
             for table in tables:
@@ -86,3 +89,7 @@ class DBStorage:
         Session = scoped_session(
             sessionmaker(bind=self.__engine, expire_on_commit=False))
         self.__session = Session()
+
+    def close(self):
+        """Close method"""
+        self.__session.close()

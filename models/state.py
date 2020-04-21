@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.city import City
+import models
 import os
 
 
@@ -22,7 +23,7 @@ class State(BaseModel, Base):
             """
             cities
             """
-            objects = storage.all()
+            objects = models.storage.all("City")
             my_cities = []
             for key, obj in objects.items():
                 if obj.state_id == self.id:
