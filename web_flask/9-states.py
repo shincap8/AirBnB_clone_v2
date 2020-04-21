@@ -14,7 +14,8 @@ def states_list(id=None):
     if id is not None:
         id = "State." + id
     print (id)
-    return render_template("9-states.html", states=states, cities=cities, id=id)
+    return render_template("9-states.html",
+                           states=states, cities=cities, id=id)
 
 
 @app.teardown_appcontext
