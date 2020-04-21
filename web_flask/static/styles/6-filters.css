@@ -60,6 +60,9 @@ button:hover {
     background: #FAFAFA;
     padding-bottom: 25px;
 }
+.popover h2{
+    margin-left: 0px;
+}
 .amenities .popover {
     padding: 20px 0;
     margin-left: -5px;
