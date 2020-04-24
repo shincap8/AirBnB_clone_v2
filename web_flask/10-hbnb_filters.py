@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 @app.route('/hbnb_filters', strict_slashes=False)
 def states_list(id=None):
+    """send states, cities and amenities"""
     states = storage.all("State").values()
     cities = storage.all("City").values()
     amenities = storage.all("Amenity").values()
@@ -17,6 +18,7 @@ def states_list(id=None):
 
 @app.teardown_appcontext
 def teardown_db(self):
+    """Teardown"""
     storage.close()
 
 
